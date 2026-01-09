@@ -2,7 +2,13 @@
 
 Sistem pakar berbasis ontologi untuk diagnosis penyakit kardiovaskular menggunakan OWL 2 dan SWRL Rules.
 
-**Demo:** https://kbr-cvd-webapp.azurewebsites.net/
+## Live Demo
+
+Aplikasi dapat diakses secara online di:
+
+https://kbr-cvd-webapp.azurewebsites.net/
+
+Versi web ini di-host pada Microsoft Azure Web App dan menggunakan Azure Cosmos DB untuk menyimpan riwayat diagnosis.
 
 ## Tentang
 
