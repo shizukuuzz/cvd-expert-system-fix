@@ -1,0 +1,55 @@
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+container-logs/
+*.zip
+
+# Local config - SENSITIVE DATA
+.env
+.env.local
+azure/local.settings.json
+
+# Apache Jena Fuseki (too large, user should download separately)
+apache-jena-fuseki-5.6.0/
+
+# Run directory (generated)
+run/
+
+# Temporary files
+*.properties
+catalog-v001.xml
+infered*.rdf
+infered*.properties
+
+# Documentation files (keep locally, not for deployment)
+docs/
+*.pdf
+*.pptx
+link*.txt
+
+# Diagnosis history (privacy)
+diagnosis_history.csv
+
+# Jena scripts (optional local tools)
+jena/

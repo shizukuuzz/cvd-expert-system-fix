@@ -1,0 +1,6 @@
+owlready2
+Flask
+gunicorn
+azure-functions
+azure-cosmos
+SPARQLWrapper

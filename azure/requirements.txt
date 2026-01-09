@@ -1,0 +1,7 @@
+# Azure Functions deployment requirements (NO SPARQL - uses Cosmos DB only)
+# Local app.py tetap tidak terpengaruh, masih pakai SPARQL
+azure-functions
+azure-cosmos
+owlready2
+Flask
+gunicorn

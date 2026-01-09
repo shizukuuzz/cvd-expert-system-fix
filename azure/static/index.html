@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CVD Expert System - Sistem Pakar Diagnosis Penyakit Kardiovaskular berbasis SROIQ Ontology dan SWRL Rules">
+    <title>CVD Expert System | Sistem Pakar Kardiovaskular</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🫀</span>
+                    <div>
+                        <h1>CVD Expert System</h1>
+                        <p class="subtitle">Sistem Pakar Diagnosis Kardiovaskular</p>
+                    </div>
+                </div>
+                <div class="header-badges">
+                    <span class="badge badge-primary">SROIQ(D)</span>
+                    <span class="badge badge-secondary">SWRL Rules</span>
+                    <span class="badge badge-accent">Pellet Reasoner</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Input Section -->
+            <section class="section input-section">
+                <h2 class="section-title">
+                    <span class="icon">📋</span>
+                    Data Pasien
+                </h2>
+
+                <form id="patientForm" class="patient-form">
+                    <!-- Demographics -->
+                    <div class="form-card">
+                        <h3 class="card-title">👤 Demografis</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="name">Nama Pasien</label>
+                                <input type="text" id="name" name="name" placeholder="Contoh: Ahmad Budiman" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Usia (tahun)</label>
+                                <input type="number" id="age" name="age" min="1" max="150" placeholder="58" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Jenis Kelamin</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">Pilih...</option>
+                                    <option value="male">Laki-laki</option>
+                                    <option value="female">Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vital Signs -->
+                    <div class="form-card">
+                        <h3 class="card-title">🩺 Tanda Vital</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="sbp">
+                                    Tekanan Sistolik (mmHg)
+                                    <span class="tooltip" data-tip="Tekanan saat jantung berkontraksi. Normal: <120">❓</span>
+                                </label>
+                                <input type="number" id="sbp" name="sbp" min="60" max="300" placeholder="152">
+                            </div>
+                            <div class="form-group">
+                                <label for="dbp">
+                                    Tekanan Diastolik (mmHg)
+                                    <span class="tooltip" data-tip="Tekanan saat jantung relaksasi. Normal: <80">❓</span>
+                                </label>
+                                <input type="number" id="dbp" name="dbp" min="40" max="200" placeholder="96">
+                            </div>
+                            <div class="form-group">
+                                <label for="hr">Denyut Jantung (bpm)</label>
+                                <input type="number" id="hr" name="hr" min="30" max="300" placeholder="72">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BMI Calculator -->
+                    <div class="form-card calculator-card">
+                        <h3 class="card-title">⚖️ Kalkulator BMI</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="weight">Berat Badan (kg)</label>
+                                <input type="number" id="weight" name="weight" min="20" max="300" step="0.1" placeholder="85" oninput="calculateBMI()">
+                            </div>
+                            <div class="form-group">
+                                <label for="height">Tinggi Badan (cm)</label>
+                                <input type="number" id="height" name="height" min="100" max="250" step="0.1" placeholder="170" oninput="calculateBMI()">
+                            </div>
+                            <div class="form-group result-field">
+                                <label for="bmi">
+                                    BMI (kg/m²)
+                                    <span class="calc-badge">Auto</span>
+                                </label>
+                                <input type="number" id="bmi" name="bmi" min="10" max="80" step="0.1" placeholder="29.4" readonly>
+                                <span class="bmi-category" id="bmiCategory"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lab Results -->
+                    <div class="form-card">
+                        <h3 class="card-title">🧪 Hasil Laboratorium</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="fbg">
+                                    Gula Darah Puasa (mg/dL)
+                                    <span class="tooltip" data-tip="Normal: <100, Prediabetes: 100-125, Diabetes: ≥126">❓</span>
+                                </label>
+                                <input type="number" id="fbg" name="fbg" min="0" max="600" step="0.1" placeholder="142">
+                            </div>
+                            <div class="form-group">
+                                <label for="hba1c">
+                                    HbA1c (%)
+                                    <span class="tooltip" data-tip="Normal: <5.7%, Prediabetes: 5.7-6.4%, Diabetes: ≥6.5%">❓</span>
+                                </label>
+                                <input type="number" id="hba1c" name="hba1c" min="0" max="20" step="0.1" placeholder="7.2">
+                            </div>
+                            <div class="form-group">
+                                <label for="totalChol">Total Kolesterol (mg/dL)</label>
+                                <input type="number" id="totalChol" name="totalChol" min="0" max="500" step="0.1" placeholder="220">
+                            </div>
+                            <div class="form-group">
+                                <label for="ldl">
+                                    LDL Kolesterol (mg/dL)
+                                    <span class="tooltip" data-tip="Optimal: <100, High: 160-189, Very High: ≥190">❓</span>
+                                </label>
+                                <input type="number" id="ldl" name="ldl" min="0" max="500" step="0.1" placeholder="175">
+                            </div>
+                            <div class="form-group">
+                                <label for="hdl">HDL Kolesterol (mg/dL)</label>
+                                <input type="number" id="hdl" name="hdl" min="0" max="200" step="0.1" placeholder="45">
+                            </div>
+                            <div class="form-group">
+                                <label for="ef">
+                                    Ejection Fraction (%)
+                                    <span class="tooltip" data-tip="Normal: 55-70%, HFpEF: ≥50%, HFmrEF: 41-49%, HFrEF: ≤40%">❓</span>
+                                </label>
+                                <input type="number" id="ef" name="ef" min="0" max="100" step="0.1" placeholder="55">
+                            </div>
+                            <div class="form-group">
+                                <label for="troponin">
+                                    Troponin I (ng/mL)
+                                    <span class="tooltip" data-tip="Normal: <0.04, Elevated/MI: >0.04">❓</span>
+                                </label>
+                                <input type="number" id="troponin" name="troponin" min="0" max="100" step="0.01" placeholder="0.02">
+                            </div>
+                            <div class="form-group">
+                                <label for="creatinine">Kreatinin (mg/dL)</label>
+                                <input type="number" id="creatinine" name="creatinine" min="0" max="20" step="0.01" placeholder="1.2" oninput="calculateEGFR()">
+                            </div>
+                            <div class="form-group">
+                                <label for="potassium">Kalium (mEq/L)</label>
+                                <input type="number" id="potassium" name="potassium" min="0" max="10" step="0.1" placeholder="4.5">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- eGFR Calculator -->
+                    <div class="form-card calculator-card">
+                        <h3 class="card-title">🔬 Kalkulator eGFR (CKD-EPI)</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="race">Ras</label>
+                                <select id="race" name="race" onchange="calculateEGFR()">
+                                    <option value="non-black">Non-Black</option>
+                                    <option value="black">Black/African</option>
+                                </select>
+                            </div>
+                            <div class="form-group result-field">
+                                <label for="gfr">
+                                    eGFR (mL/min/1.73m²)
+                                    <span class="calc-badge">Auto</span>
+                                </label>
+                                <input type="number" id="gfr" name="gfr" min="0" max="200" step="0.1" placeholder="85" readonly>
+                                <span class="gfr-category" id="gfrCategory"></span>
+                            </div>
+                        </div>
+                        <p class="calc-note">💡 eGFR dihitung dari Kreatinin, Usia, Jenis Kelamin, dan Ras menggunakan rumus CKD-EPI 2021</p>
+                    </div>
+
+                    <!-- ASCVD Risk Calculator -->
+                    <div class="form-card calculator-card">
+                        <h3 class="card-title">📊 Kalkulator ASCVD Risk (10-tahun)</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="checkbox-item inline">
+                                    <input type="checkbox" name="onHypertensionTreatment" id="onHypertensionTreatment" onchange="calculateASCVD()">
+                                    <span class="checkmark"></span>
+                                    Sedang Terapi Hipertensi (Obat Antihipertensi)
+                                </label>
+                            </div>
+                            <div class="form-group auto-status">
+                                <label>Status Diabetes:</label>
+                                <span class="status-badge" id="diabetesStatus">-</span>
+                                <small class="status-note">Auto dari FBG ≥126 atau HbA1c ≥6.5%</small>
+                            </div>
+                            <div class="form-group result-field">
+                                <label for="ascvd">
+                                    ASCVD Score (%)
+                                    <span class="calc-badge">Auto</span>
+                                </label>
+                                <input type="number" id="ascvd" name="ascvd" min="0" max="100" step="0.1" placeholder="12.5" readonly>
+                                <span class="ascvd-category" id="ascvdCategory"></span>
+                            </div>
+                        </div>
+                        <p class="calc-note">💡 ASCVD dihitung dari Usia, Gender, Ras, Total Kolesterol, HDL, Tekanan Sistolik, Terapi HT, DM (auto), dan Merokok</p>
+                    </div>
+
+                    <!-- CHA2DS2-VASc Calculator -->
+                    <div class="form-card calculator-card">
+                        <h3 class="card-title">🫀 Kalkulator CHA₂DS₂-VASc (Atrial Fibrilasi)</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="checkbox-item inline">
+                                    <input type="checkbox" name="hasHeartFailure" id="hasHeartFailure" onchange="calculateCHA2DS2VASc()">
+                                    <span class="checkmark"></span>
+                                    Gagal Jantung Kongestif (EF rendah/gejala)
+                                </label>
+                            </div>
+                            <div class="form-group auto-status">
+                                <label>Status Hipertensi:</label>
+                                <span class="status-badge" id="hypertensionStatus">-</span>
+                                <small class="status-note">Auto dari SBP ≥140 atau DBP ≥90</small>
+                            </div>
+                            <div class="form-group auto-status">
+                                <label>Status Diabetes:</label>
+                                <span class="status-badge" id="diabetesStatus2">-</span>
+                                <small class="status-note">Auto dari FBG ≥126 atau HbA1c ≥6.5%</small>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-item inline">
+                                    <input type="checkbox" name="hasStrokeHistory" id="hasStrokeHistory" onchange="calculateCHA2DS2VASc(); calculateHASBLED();">
+                                    <span class="checkmark"></span>
+                                    Riwayat Stroke/TIA/Tromboemboli (+2 poin)
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-item inline">
+                                    <input type="checkbox" name="hasVascularDisease" id="hasVascularDisease" onchange="calculateCHA2DS2VASc()">
+                                    <span class="checkmark"></span>
+                                    Penyakit Vaskular (MI, PAD, Plak Aorta)
+                                </label>
+                            </div>
+                            <div class="form-group result-field">
+                                <label for="cha2ds2vasc">
+                                    CHA₂DS₂-VASc Score (0-9)
+                                    <span class="calc-badge">Auto</span>
+                                </label>
+                                <input type="number" id="cha2ds2vasc" name="cha2ds2vasc" min="0" max="9" placeholder="2" readonly>
+                                <span class="cha2ds2vasc-category" id="cha2ds2vascCategory"></span>
+                            </div>
+                        </div>
+                        <p class="calc-note">💡 C=CHF, H=Hipertensi(auto), A₂=Age≥75(+2), D=DM(auto), S₂=Stroke(+2), V=Vaskular, A=Age65-74, Sc=Female</p>
+                    </div>
+
+                    <!-- HAS-BLED Calculator -->
+                    <div class="form-card calculator-card">
+                        <h3 class="card-title">🩸 Kalkulator HAS-BLED (Risiko Perdarahan)</h3>
+                        <div class="form-grid">
+                            <div class="form-group auto-status">
+                                <label>H - Hipertensi (SBP>160):</label>
+                                <span class="status-badge" id="hasbledHStatus">-</span>
+                            </div>
+                            <div class="form-group auto-status">
+                                <label>A - Abnormal Renal (eGFR<30):</label>
+                                <span class="status-badge" id="hasbledARenal">-</span>
+                            </div>
+                            <div class="form-group auto-status">
+                                <label>A - Abnormal Liver:</label>
+                                <span class="status-badge" id="hasbledALiver">-</span>
+                                <small class="status-note">Dari checkbox "Penyakit Hati" di Komorbid</small>
+                            </div>
+                            <div class="form-group auto-status">
+                                <label>S - Stroke History:</label>
+                                <span class="status-badge" id="hasbledS">-</span>
+                                <small class="status-note">Dari checkbox di CHA₂DS₂-VASc</small>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-item inline">
+                                    <input type="checkbox" name="hasBleedingHistory" id="hasBleedingHistory" onchange="calculateHASBLED()">
+                                    <span class="checkmark"></span>
+                                    B - Riwayat Perdarahan Mayor
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-item inline">
+                                    <input type="checkbox" name="hasLabileINR" id="hasLabileINR" onchange="calculateHASBLED()">
+                                    <span class="checkmark"></span>
+                                    L - INR Labil (TTR <60%)
+                                </label>
+                            </div>
+                            <div class="form-group auto-status">
+                                <label>E - Elderly (Age>65):</label>
+                                <span class="status-badge" id="hasbledE">-</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-item inline">
+                                    <input type="checkbox" name="takesAntiplatelet" id="takesAntiplatelet" onchange="calculateHASBLED()">
+                                    <span class="checkmark"></span>
+                                    D - Drugs (Antiplatelet/NSAID bersamaan)
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-item inline">
+                                    <input type="checkbox" name="takesAlcohol" id="takesAlcohol" onchange="calculateHASBLED()">
+                                    <span class="checkmark"></span>
+                                    D - Alkohol Berlebihan (≥8 unit/minggu)
+                                </label>
+                            </div>
+                            <div class="form-group result-field">
+                                <label for="hasbled">
+                                    HAS-BLED Score (0-9)
+                                    <span class="calc-badge">Auto</span>
+                                </label>
+                                <input type="number" id="hasbled" name="hasbled" min="0" max="9" placeholder="0" readonly>
+                                <span class="hasbled-category" id="hasBledCategory"></span>
+                            </div>
+                        </div>
+                        <p class="calc-note">💡 Skor ≥3 = risiko perdarahan tinggi, perlu monitoring ketat. H,A,S,E auto-detected dari data.</p>
+                    </div>
+
+                    <!-- Symptoms -->
+                    <div class="form-card">
+                        <h3 class="card-title">🤒 Gejala yang Dialami</h3>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="symptoms" value="nyeri_dada">
+                                <span class="checkmark"></span>
+                                Nyeri Dada
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="symptoms" value="sesak_napas">
+                                <span class="checkmark"></span>
+                                Sesak Napas
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="symptoms" value="edema">
+                                <span class="checkmark"></span>
+                                Edema (Bengkak Kaki)
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="symptoms" value="kelelahan">
+                                <span class="checkmark"></span>
+                                Kelelahan
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="symptoms" value="pusing">
+                                <span class="checkmark"></span>
+                                Pusing
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="symptoms" value="orthopnea">
+                                <span class="checkmark"></span>
+                                Sesak saat Berbaring
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="symptoms" value="palpitasi">
+                                <span class="checkmark"></span>
+                                Palpitasi (Jantung Berdebar)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Comorbidities & History -->
+                    <div class="form-row">
+                        <div class="form-card half">
+                            <h3 class="card-title">⚕️ Kondisi Komorbid</h3>
+                            <div class="checkbox-grid vertical">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="asthma" id="asthma">
+                                    <span class="checkmark"></span>
+                                    Asma
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="pregnancy" id="pregnancy">
+                                    <span class="checkmark"></span>
+                                    Kehamilan
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="liver_disease" id="liver_disease">
+                                    <span class="checkmark"></span>
+                                    Penyakit Hati Aktif
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-card half">
+                            <h3 class="card-title">📜 Riwayat</h3>
+                            <div class="checkbox-grid vertical">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="smoking" id="smoking">
+                                    <span class="checkmark"></span>
+                                    Merokok
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="cad" id="cad">
+                                    <span class="checkmark"></span>
+                                    Riwayat PJK
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-icon">🔍</span>
+                            Analisis & Diagnosa
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                            <span class="btn-icon">🔄</span>
+                            Reset
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Results Section (Hidden initially) -->
+            <section id="resultsSection" class="section results-section hidden">
+                <h2 class="section-title">
+                    <span class="icon">📊</span>
+                    Hasil Diagnosis
+                </h2>
+
+                <!-- Emergency Alert -->
+                <div id="emergencyAlert" class="alert alert-emergency hidden">
+                    <span class="alert-icon">🚨</span>
+                    <div>
+                        <strong>EMERGENCY!</strong>
+                        <p>Kondisi kritis terdeteksi. Segera hubungi layanan gawat darurat.</p>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="summary-card" id="riskCard">
+                        <div class="summary-icon">📊</div>
+                        <div class="summary-content">
+                            <div class="summary-value" id="riskCategory">-</div>
+                            <div class="summary-label">Kategori Risiko</div>
+                        </div>
+                    </div>
+                    <div class="summary-card" id="severityCard">
+                        <div class="summary-icon">⚡</div>
+                        <div class="summary-content">
+                            <div class="summary-value" id="severityLevel">-</div>
+                            <div class="summary-label">Tingkat Keparahan</div>
+                        </div>
+                    </div>
+                    <div class="summary-card" id="rulesCard">
+                        <div class="summary-icon">🧠</div>
+                        <div class="summary-content">
+                            <div class="summary-value" id="rulesFired">0</div>
+                            <div class="summary-label">SWRL Rules Fired</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diagnoses -->
+                <div class="result-card">
+                    <h3 class="result-title">
+                        <span class="icon">🩺</span>
+                        Diagnosis
+                    </h3>
+                    <div id="diagnosisList" class="diagnosis-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Medications -->
+                <div class="result-card">
+                    <h3 class="result-title">
+                        <span class="icon">💊</span>
+                        Rekomendasi Obat
+                    </h3>
+                    <div id="medicationList" class="medication-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Contraindications -->
+                <div id="contraindicationsCard" class="result-card contraindications hidden">
+                    <h3 class="result-title">
+                        <span class="icon">⚠️</span>
+                        Kontraindikasi
+                    </h3>
+                    <div id="contraindicationList" class="contraindication-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Lifestyle Recommendations -->
+                <div class="result-card">
+                    <h3 class="result-title">
+                        <span class="icon">🏃</span>
+                        Rekomendasi Gaya Hidup
+                    </h3>
+                    <div id="lifestyleList" class="lifestyle-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Reasoning Trace -->
+                <div class="result-card collapsible">
+                    <h3 class="result-title" onclick="toggleReasoningTrace()">
+                        <span class="icon">📜</span>
+                        Reasoning Trace (SWRL)
+                        <span class="collapse-icon" id="traceCollapseIcon">▼</span>
+                    </h3>
+                    <div id="reasoningTrace" class="reasoning-trace">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="result-actions">
+                    <button class="btn btn-secondary" onclick="exportReport()">
+                        <span class="btn-icon">📄</span>
+                        Export Report
+                    </button>
+                    <button class="btn btn-secondary" onclick="showHistory()">
+                        <span class="btn-icon">📚</span>
+                        Riwayat Diagnosis
+                    </button>
+                </div>
+            </section>
+
+            <!-- History Modal -->
+            <div id="historyModal" class="modal hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>📚 Riwayat Diagnosis</h3>
+                        <button class="close-btn" onclick="closeHistory()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="historyTable" class="history-table">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>CVD Expert System © 2024 | Berbasis SROIQ(D) Ontology + SWRL Rules + Pellet Reasoner</p>
+            <p class="disclaimer">⚠️ Sistem ini hanya untuk tujuan edukasi. Selalu konsultasikan dengan dokter.</p>
+        </footer>
+    </div>
+
+    <!-- Tooltip Modal -->
+    <div id="tooltipModal" class="modal hidden">
+        <div class="modal-content tooltip-modal-content">
+            <div class="modal-header">
+                <h3 id="tooltipTitle">Parameter Info</h3>
+                <button class="close-btn" onclick="closeTooltipModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="tooltipContent" class="tooltip-description"></p>
+                <p class="tooltip-source">📚 Sumber: Ontology CVD Expert System</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Menjalankan Pellet Reasoner...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

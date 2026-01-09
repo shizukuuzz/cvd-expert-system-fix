@@ -1,0 +1,14 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+        "AzureWebJobsStorage": "",
+        "FUNCTIONS_WORKER_RUNTIME": "python",
+        "COSMOS_DB_CONNECTION_STRING": "<YOUR_COSMOS_CONNECTION_STRING>",
+        "COSMOS_DB_DATABASE_NAME": "CVDExpertSystem",
+        "COSMOS_DB_CONTAINER_NAME": "DiagnosisHistory"
+    },
+    "Host": {
+        "LocalHttpPort": 7071,
+        "CORS": "*"
+    }
+}

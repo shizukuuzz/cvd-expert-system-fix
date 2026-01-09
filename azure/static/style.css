@@ -1,0 +1,1377 @@
+/* ============================================================
+   CVD Expert System - Stylesheet
+   Medical Theme with Navy Blue & Green Color Palette
+   ============================================================ */
+
+/* CSS Variables - Medical Color Palette */
+:root {
+    /* Primary Colors - Navy Blue */
+    --navy-900: #1a365d;
+    --navy-800: #1e3a5f;
+    --navy-700: #2c5282;
+    --navy-600: #2b6cb0;
+    --navy-500: #3182ce;
+    --navy-400: #4299e1;
+
+    /* Secondary Colors - Green */
+    --green-900: #1c4532;
+    --green-800: #22543d;
+    --green-700: #276749;
+    --green-600: #2f855a;
+    --green-500: #38a169;
+    --green-400: #48bb78;
+    --green-300: #68d391;
+
+    /* Background Colors */
+    --bg-primary: #f7fafc;
+    --bg-secondary: #edf2f7;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f8fafd;
+
+    /* Text Colors */
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --text-light: #a0aec0;
+
+    /* Accent Colors */
+    --accent-primary: var(--navy-700);
+    --accent-secondary: var(--green-600);
+    --accent-gradient: linear-gradient(135deg, var(--navy-700) 0%, var(--green-600) 100%);
+
+    /* Status Colors */
+    --success: var(--green-500);
+    --success-bg: rgba(56, 161, 105, 0.1);
+    --warning: #dd6b20;
+    --warning-bg: rgba(221, 107, 32, 0.1);
+    --danger: #c53030;
+    --danger-bg: rgba(197, 48, 48, 0.1);
+    --critical: #805ad5;
+    --critical-bg: rgba(128, 90, 213, 0.1);
+
+    /* Severity Colors */
+    --severity-ringan: var(--green-500);
+    --severity-sedang: #dd6b20;
+    --severity-berat: #c53030;
+    --severity-kritis: #805ad5;
+
+    /* Borders */
+    --border-color: #e2e8f0;
+    --border-glow: rgba(44, 82, 130, 0.3);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 15px rgba(44, 82, 130, 0.2);
+
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Border Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Background Pattern */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse at 0% 0%, rgba(44, 82, 130, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 100%, rgba(47, 133, 90, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.header {
+    background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-700) 50%, var(--green-700) 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    box-shadow: var(--shadow-lg);
+    color: white;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.logo-icon {
+    font-size: 2.5rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.logo h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: white;
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.875rem;
+}
+
+.header-badges {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-lg);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-primary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.badge-secondary {
+    background: rgba(56, 161, 105, 0.3);
+    color: var(--green-300);
+    border: 1px solid rgba(56, 161, 105, 0.4);
+}
+
+.badge-accent {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--green-300);
+    border: 1px solid rgba(56, 161, 105, 0.3);
+}
+
+/* ============================================================
+   Section
+   ============================================================ */
+.section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    color: var(--navy-800);
+}
+
+.section-title .icon {
+    font-size: 1.5rem;
+}
+
+/* ============================================================
+   Form Cards
+   ============================================================ */
+.form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-normal);
+}
+
+.form-card:hover {
+    border-color: var(--navy-400);
+    box-shadow: var(--shadow-md);
+}
+
+.card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--navy-800);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.form-row {
+    display: flex;
+    gap: var(--spacing-lg);
+}
+
+.form-card.half {
+    flex: 1;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.form-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.tooltip {
+    cursor: help;
+    opacity: 0.6;
+    transition: var(--transition-fast);
+}
+
+.tooltip:hover {
+    opacity: 1;
+}
+
+.form-group input,
+.form-group select {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: var(--transition-normal);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--navy-500);
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+    background: var(--bg-card);
+}
+
+.form-group input::placeholder {
+    color: var(--text-light);
+}
+
+/* Checkbox Grid */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.checkbox-grid.vertical {
+    grid-template-columns: 1fr;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-secondary);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.checkbox-item:hover {
+    background: rgba(44, 82, 130, 0.05);
+    border-color: var(--navy-400);
+}
+
+.checkbox-item input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-normal);
+}
+
+.checkbox-item input:checked+.checkmark {
+    background: var(--green-600);
+    border-color: var(--green-600);
+}
+
+.checkbox-item input:checked+.checkmark::after {
+    content: '✓';
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin-top: var(--spacing-lg);
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-xl);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.btn-icon {
+    font-size: 1.125rem;
+}
+
+.btn-primary {
+    background: var(--accent-gradient);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.btn-secondary {
+    background: var(--bg-card);
+    color: var(--navy-700);
+    border: 2px solid var(--navy-700);
+}
+
+.btn-secondary:hover {
+    background: var(--navy-700);
+    color: white;
+}
+
+/* ============================================================
+   Results Section
+   ============================================================ */
+.results-section {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Alert */
+.alert {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.alert-emergency {
+    background: var(--danger-bg);
+    border: 2px solid var(--danger);
+    animation: emergencyPulse 1s infinite;
+}
+
+@keyframes emergencyPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(197, 48, 48, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 20px 5px rgba(197, 48, 48, 0.2);
+    }
+}
+
+.alert-icon {
+    font-size: 2rem;
+}
+
+/* Summary Cards */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.summary-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-normal);
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--green-400);
+}
+
+.summary-icon {
+    font-size: 2rem;
+}
+
+.summary-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--navy-800);
+}
+
+.summary-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Result Cards */
+.result-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.result-card.contraindications {
+    border-color: var(--danger);
+    background: var(--danger-bg);
+}
+
+.result-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--navy-800);
+}
+
+.result-title .icon {
+    font-size: 1.25rem;
+}
+
+/* Diagnosis List */
+.diagnosis-list {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.diagnosis-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    border-left: 4px solid;
+}
+
+.diagnosis-item.severity-ringan {
+    border-left-color: var(--severity-ringan);
+    background: rgba(56, 161, 105, 0.05);
+}
+
+.diagnosis-item.severity-sedang {
+    border-left-color: var(--severity-sedang);
+    background: rgba(221, 107, 32, 0.05);
+}
+
+.diagnosis-item.severity-berat {
+    border-left-color: var(--severity-berat);
+    background: rgba(197, 48, 48, 0.05);
+}
+
+.diagnosis-item.severity-kritis {
+    border-left-color: var(--severity-kritis);
+    background: rgba(128, 90, 213, 0.05);
+    animation: criticalPulse 2s infinite;
+}
+
+@keyframes criticalPulse {
+
+    0%,
+    100% {
+        background: rgba(128, 90, 213, 0.05);
+    }
+
+    50% {
+        background: rgba(128, 90, 213, 0.12);
+    }
+}
+
+.diagnosis-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.diagnosis-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.severity-badge {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.severity-badge.ringan {
+    background: var(--success-bg);
+    color: var(--success);
+}
+
+.severity-badge.sedang {
+    background: var(--warning-bg);
+    color: var(--warning);
+}
+
+.severity-badge.berat {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+
+.severity-badge.kritis {
+    background: var(--critical-bg);
+    color: var(--critical);
+}
+
+/* Medication List */
+.medication-list {
+    display: grid;
+    gap: var(--spacing-sm);
+}
+
+.medication-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: rgba(56, 161, 105, 0.05);
+    border: 1px solid rgba(56, 161, 105, 0.2);
+    border-radius: var(--radius-md);
+}
+
+.medication-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--green-600);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: white;
+}
+
+.medication-info {
+    flex: 1;
+}
+
+.medication-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.medication-details {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Contraindication List */
+.contraindication-list {
+    display: grid;
+    gap: var(--spacing-sm);
+}
+
+.contraindication-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: var(--radius-md);
+}
+
+.contraindication-icon {
+    font-size: 1.5rem;
+}
+
+.contraindication-drug {
+    font-weight: 600;
+    color: var(--danger);
+}
+
+.contraindication-reason {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Lifestyle List */
+.lifestyle-list {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.lifestyle-category {
+    padding: var(--spacing-md);
+    background: rgba(44, 82, 130, 0.05);
+    border: 1px solid rgba(44, 82, 130, 0.15);
+    border-radius: var(--radius-md);
+}
+
+.lifestyle-category-title {
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--navy-700);
+}
+
+.lifestyle-items {
+    list-style: none;
+}
+
+.lifestyle-items li {
+    padding: var(--spacing-xs) 0;
+    padding-left: var(--spacing-md);
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.lifestyle-items li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--green-600);
+}
+
+/* Reasoning Trace */
+.result-card.collapsible .result-title {
+    cursor: pointer;
+}
+
+.collapse-icon {
+    margin-left: auto;
+    transition: var(--transition-normal);
+}
+
+.reasoning-trace {
+    max-height: 300px;
+    overflow-y: auto;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.875rem;
+    line-height: 1.8;
+    padding: var(--spacing-md);
+    background: var(--navy-900);
+    color: #e2e8f0;
+    border-radius: var(--radius-md);
+}
+
+.reasoning-trace.collapsed {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.trace-line {
+    padding: var(--spacing-xs) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trace-line:last-child {
+    border-bottom: none;
+}
+
+/* Result Actions */
+.result-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin-top: var(--spacing-lg);
+}
+
+/* ============================================================
+   Modal
+   ============================================================ */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 54, 93, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+    background: linear-gradient(135deg, var(--navy-800) 0%, var(--green-700) 100%);
+    color: white;
+}
+
+.modal-header h3 {
+    font-size: 1.25rem;
+}
+
+.close-btn {
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition-normal);
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+    max-height: calc(80vh - 80px);
+}
+
+/* History Table */
+.history-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.history-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-table th,
+.history-table td {
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.history-table th {
+    background: var(--bg-secondary);
+    font-weight: 600;
+    color: var(--navy-800);
+}
+
+.history-table tr:hover {
+    background: var(--bg-secondary);
+}
+
+/* ============================================================
+   Loading State
+   ============================================================ */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-xl);
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--border-color);
+    border-top-color: var(--navy-600);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* ============================================================
+   Empty State
+   ============================================================ */
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--text-muted);
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    opacity: 0.5;
+}
+
+/* ============================================================
+   Responsive Design
+   ============================================================ */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-md);
+    }
+
+    .header {
+        padding: var(--spacing-md);
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo {
+        flex-direction: column;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .diagnosis-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+
+    .result-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .header-badges {
+        justify-content: center;
+    }
+}
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-success {
+    color: var(--success);
+}
+
+.text-warning {
+    color: var(--warning);
+}
+
+.text-danger {
+    color: var(--danger);
+}
+
+.text-critical {
+    color: var(--critical);
+}
+
+.bg-success {
+    background-color: var(--success-bg);
+}
+
+.bg-warning {
+    background-color: var(--warning-bg);
+}
+
+.bg-danger {
+    background-color: var(--danger-bg);
+}
+
+.bg-critical {
+    background-color: var(--critical-bg);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--navy-400);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--navy-600);
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .header {
+        background: none;
+        color: black;
+        border: 2px solid black;
+    }
+
+    .logo h1 {
+        color: black;
+        -webkit-text-fill-color: black;
+    }
+
+    .btn,
+    .form-actions,
+    .result-actions {
+        display: none;
+    }
+
+    .form-card,
+    .result-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
+
+/* ============================================================
+   Expandable Description Styles
+   ============================================================ */
+
+/* Diagnosis Item with Description */
+.diagnosis-item {
+    flex-direction: column;
+    align-items: stretch;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.diagnosis-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.diagnosis-description {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    padding-top: 0;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    transition: all var(--transition-normal);
+    border-top: 1px solid transparent;
+}
+
+.diagnosis-item.expanded .diagnosis-description {
+    max-height: 500px;
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top-color: var(--border-color);
+}
+
+/* Medication Item with Description */
+.medication-item {
+    flex-direction: column;
+    align-items: stretch;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.medication-main {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    width: 100%;
+}
+
+.medication-description {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    padding-top: 0;
+    padding-left: 56px;
+    /* Align with text after icon */
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    transition: all var(--transition-normal);
+    border-top: 1px solid transparent;
+}
+
+.medication-item.expanded .medication-description {
+    max-height: 500px;
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top-color: var(--border-color);
+}
+
+/* Lifestyle Item with Description */
+.lifestyle-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.lifestyle-item:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.lifestyle-item-name {
+    font-weight: 500;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.lifestyle-item-name::before {
+    content: '✓';
+    color: var(--green-600);
+}
+
+.lifestyle-item-desc {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    padding-left: calc(var(--spacing-md) + 0.5rem);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    transition: all var(--transition-normal);
+}
+
+.lifestyle-item.expanded .lifestyle-item-desc {
+    max-height: 300px;
+    margin-top: var(--spacing-sm);
+}
+
+/* Click hint */
+.diagnosis-item:not(.expanded) .diagnosis-main::after,
+.medication-item:not(.expanded) .medication-main::after,
+.lifestyle-item:not(.expanded) .lifestyle-item-name::after {
+    content: '📖';
+    font-size: 0.75rem;
+    opacity: 0;
+    margin-left: auto;
+    transition: var(--transition-normal);
+}
+
+.diagnosis-item:hover:not(.expanded) .diagnosis-main::after,
+.medication-item:hover:not(.expanded) .medication-main::after,
+.lifestyle-item:hover:not(.expanded) .lifestyle-item-name::after {
+    opacity: 0.6;
+}
+
+/* ============================================================
+   Tooltip Modal Styles
+   ============================================================ */
+
+.tooltip-modal-content {
+    max-width: 500px;
+}
+
+.tooltip-description {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.tooltip-source {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+/* Make tooltip icons more clickable */
+.tooltip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: var(--navy-100, rgba(44, 82, 130, 0.1));
+    border-radius: 50%;
+    font-size: 0.7rem;
+    color: var(--navy-600);
+    transition: var(--transition-normal);
+}
+
+.tooltip:hover {
+    background: var(--navy-500);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* ============================================================
+   Calculator Cards
+   ============================================================ */
+
+.calculator-card {
+    background: linear-gradient(135deg, rgba(44, 82, 130, 0.03) 0%, rgba(47, 133, 90, 0.03) 100%);
+    border: 2px solid var(--navy-200, rgba(44, 82, 130, 0.15));
+}
+
+.calculator-card .card-title {
+    color: var(--navy-700);
+}
+
+.calc-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--green-500);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 600;
+    border-radius: 10px;
+    margin-left: 8px;
+    text-transform: uppercase;
+}
+
+.result-field input {
+    background: rgba(47, 133, 90, 0.08) !important;
+    border: 2px solid var(--green-400) !important;
+    font-weight: 600;
+    color: var(--green-700) !important;
+}
+
+.result-field input:focus {
+    border-color: var(--green-500) !important;
+    box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.2) !important;
+}
+
+.bmi-category,
+.gfr-category,
+.ascvd-category,
+.cha2ds2vasc-category,
+.hasbled-category {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 4px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.calc-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: rgba(44, 82, 130, 0.05);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--navy-400);
+}
+
+.checkbox-item.inline {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0;
+}
+
+.checkbox-item.inline input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Auto-status display for inferred values */
+.auto-status {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 12px;
+    background: rgba(44, 82, 130, 0.05);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--navy-400);
+}
+
+.auto-status label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.status-badge {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.03);
+    display: inline-block;
+}
+
+.status-note {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
